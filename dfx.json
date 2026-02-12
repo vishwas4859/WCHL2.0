@@ -1,0 +1,52 @@
+{
+  "canisters": {
+    "internet_identity": {
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+    },
+    "ridesharing_backend": {
+      "candid": "src/ridesharing_backend/ridesharing_backend.did",
+      "package": "ridesharing_backend",
+      "type": "rust",
+      "controllers": [
+        "xotqc-mb2sc-dlqlo-q3ijw-4paru-nlkb3-jy3kh-pfzh6-rf4vu-aigfb-cae",
+        "$(dfx identity get-principal)"
+      ]
+    },
+    "ridesharing_frontend": {
+      "dependencies": [
+        "ridesharing_backend"
+      ],
+      "source": [
+        "src/ridesharing_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "ridesharing_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    },
+    "controllers": [
+      "xotqc-mb2sc-dlqlo-q3ijw-4paru-nlkb3-jy3kh-pfzh6-rf4vu-aigfb-cae",
+      "$(dfx identity get-principal)"
+    ]
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

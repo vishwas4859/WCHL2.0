@@ -1,0 +1,42 @@
+type RideStatus = variant {
+    Open;
+    InProgress;
+    Completed;
+    Cancelled;
+};
+
+type Ride = record {
+    ride_id : text;
+    riders : vec text;
+    origin : text;
+    destination : text;
+    owner : text;
+    is_driver : bool;
+    driver_id : opt text;
+    status : RideStatus;
+    max_riders : nat64;
+    created_at : nat64;
+};
+
+service : {
+    // Token related methods
+    "buy_tokens": (amount: nat64) -> (text);
+    "pay_for_ride": (driver: principal, amount: nat64) -> (text);
+    "get_balance": (user: principal) -> (nat64) query;
+
+    // Ride management methods
+    "post_ride": (user_id: text, origin: text, destination: text, max_riders: nat64, is_driver_created: bool) -> (text);
+    "get_all_rides": () -> (vec Ride) query;
+    "search_rides": (opt text, opt text, opt RideStatus) -> (vec Ride) query;
+    "request_to_join": (ride_id: text, requester_id: text) -> (text);
+    "accept_rider": (ride_id: text, owner_id: text, user_id: text) -> (text);
+    "cancel_ride": (ride_id: text, owner_id: text) -> (text);
+    "driver_join": (ride_id: text, driver_id: text) -> (text);
+    
+    // Notification methods
+    "get_notifications": (user_id: text) -> (vec text) query;
+
+    // Loyalty rewards
+    "check_driver_rewards": (driver_id: text) -> (text);
+}
+

@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "src/ridesharing_backend"
+]
+resolver = "2"
